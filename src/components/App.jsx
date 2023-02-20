@@ -16,6 +16,8 @@ const App = () => {
   const onAddContact = payload => {
     const action = addContact(payload);
     dispatch(action);
+
+    localStorage.setItem('my-contacts', JSON.stringify(contacts));
     const normalizedName = payload.name.toLowerCase();
 
     if (
@@ -37,20 +39,6 @@ const App = () => {
     dispatch(setFilter(target.value));
   };
 
-  const filterContacts = () => {
-    if (!filter) {
-      return contacts;
-    }
-
-    const normalizedFilter = filter.toLowerCase();
-    const filtered = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-    return filtered;
-  };
-
-  const filteredContacts = filterContacts();
-
   return (
     <div
       style={{
@@ -65,10 +53,7 @@ const App = () => {
 
       <h1>Contacts</h1>
       <Filter filter={filter} onChange={onSetFilter} />
-      <ContactList
-        contacts={filteredContacts}
-        onDeleteContact={onRemoveContact}
-      />
+      <ContactList contacts={contacts} onDeleteContact={onRemoveContact} />
     </div>
   );
 };
