@@ -10,23 +10,18 @@ import Filter from './Filter/Filter';
 const App = () => {
   const contacts = useSelector(getFilteredContacts);
   const filter = useSelector(getFilter);
-  // const [contacts, setContacts] = useState([...items]);
-
-  // useEffect(() => {
-  //   localStorage.setItem('my-contacts', JSON.stringify(contacts));
-  // }, [contacts]);
 
   const dispatch = useDispatch();
 
   const onAddContact = payload => {
     const action = addContact(payload);
     dispatch(action);
-    const normalizedFind = payload.name.toLowerCase();
+    const normalizedName = payload.name.toLowerCase();
 
     if (
       contacts.find(
         contact =>
-          contact.name.toLowerCase() === normalizedFind ||
+          contact.name.toLowerCase() === normalizedName ||
           contact.number === payload.number
       )
     ) {
