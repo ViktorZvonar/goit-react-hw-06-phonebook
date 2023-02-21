@@ -1,4 +1,3 @@
-export const getBooks = store => store.books;
 export const getContacts = store => store.contacts;
 
 export const getFilteredContacts = ({ contacts, filter }) => {
