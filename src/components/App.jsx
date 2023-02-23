@@ -17,8 +17,6 @@ const App = () => {
   const onAddContact = payload => {
     const action = addContact(payload);
     dispatch(action);
-
-    localStorage.setItem('my-contacts', JSON.stringify(contacts));
     const normalizedName = payload.name.toLowerCase();
 
     if (
@@ -51,7 +49,6 @@ const App = () => {
     >
       <h1>Phonebook</h1>
       <Form onSubmit={onAddContact} />
-
       <h1>Contacts</h1>
       <Filter filter={filter} onChange={onSetFilter} />
       <ContactList contacts={contacts} onDeleteContact={onRemoveContact} />
