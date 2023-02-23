@@ -16,18 +16,16 @@ const App = () => {
 
   const onAddContact = payload => {
     const action = addContact(payload);
-    dispatch(action);
+
     const normalizedName = payload.name.toLowerCase();
 
-    if (
-      contacts.find(
-        contact =>
-          contact.name.toLowerCase() === normalizedName ||
-          contact.number === payload.number
-      )
-    ) {
-      return alert(`This contact is already in your book.`);
-    }
+    contacts.find(
+      contact =>
+        contact.name.toLowerCase() === normalizedName ||
+        contact.number === payload.number
+    )
+      ? alert(`This contact is already in your book.`)
+      : dispatch(action);
   };
 
   const onRemoveContact = payload => {
