@@ -1,4 +1,3 @@
-// import { Component } from 'react';
 import { useState } from 'react';
 
 import { nanoid } from 'nanoid';
@@ -13,9 +12,6 @@ const Form = () => {
   const contacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
   const onAddContact = payload => {
-    const action = addContact(payload);
-    console.log(payload);
-
     const normalizedName = payload.name.toLowerCase();
 
     contacts.find(
@@ -24,7 +20,7 @@ const Form = () => {
         contact.number === payload.number
     )
       ? alert(`This contact is already in your book.`)
-      : dispatch(action);
+      : dispatch(addContact(payload));
   };
 
   const initialState = {
@@ -46,7 +42,7 @@ const Form = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onAddContact();
+    onAddContact(state);
     setState({ ...initialState });
   };
 
