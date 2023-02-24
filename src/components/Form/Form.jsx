@@ -2,10 +2,31 @@
 import { useState } from 'react';
 
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+
 import css from './Form.module.css';
 
-const Form = ({ onSubmit }) => {
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from 'redux/contacts/contactsSlice';
+import { getFilteredContacts } from 'redux/selectors';
+
+const Form = () => {
+  const contacts = useSelector(getFilteredContacts);
+  const dispatch = useDispatch();
+  const onAddContact = payload => {
+    const action = addContact(payload);
+    console.log(payload);
+
+    const normalizedName = payload.name.toLowerCase();
+
+    contacts.find(
+      contact =>
+        contact.name.toLowerCase() === normalizedName ||
+        contact.number === payload.number
+    )
+      ? alert(`This contact is already in your book.`)
+      : dispatch(action);
+  };
+
   const initialState = {
     name: '',
     number: '',
@@ -25,7 +46,7 @@ const Form = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(state);
+    onAddContact();
     setState({ ...initialState });
   };
 
@@ -68,7 +89,3 @@ const Form = ({ onSubmit }) => {
 };
 
 export default Form;
-
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
