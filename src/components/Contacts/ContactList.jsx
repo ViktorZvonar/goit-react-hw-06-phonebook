@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import css from './ContactList.module.css';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,7 +20,7 @@ const ContactList = () => {
       {contacts.map(contact => (
         <li
           className={css.item}
-          key={nanoid()}
+          key={contact.id}
           name={contact.name}
           number={contact.number}
         >

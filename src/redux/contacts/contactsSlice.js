@@ -11,16 +11,20 @@ const contactsSlice = createSlice({
   ],
   reducers: {
     addContact: {
-      reducer: (store, { payload }) => [payload, ...store],
+      reducer: (store, { payload }) => {
+        store.push(payload);
+      },
+      prepare: data => {
+        const id = nanoid();
+        return {
+          payload: {
+            id,
+            ...data,
+          },
+        };
+      },
     },
-    prepare: data => {
-      return {
-        payload: {
-          ...data,
-          id: nanoid(),
-        },
-      };
-    },
+
     removeContact: (store, { payload }) =>
       store.filter(item => item.id !== payload),
   },

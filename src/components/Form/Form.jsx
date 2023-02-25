@@ -20,12 +20,13 @@ const Form = () => {
         contact.number === payload.number
     )
       ? alert(`This contact is already in your book.`)
-      : dispatch(addContact(payload));
+      : dispatch(addContact(payload)) && setState({ ...initialState });
   };
 
   const initialState = {
     name: '',
     number: '',
+    // id: '',
   };
 
   const [state, setState] = useState({ ...initialState });
@@ -43,7 +44,6 @@ const Form = () => {
   const handleSubmit = e => {
     e.preventDefault();
     onAddContact(state);
-    setState({ ...initialState });
   };
 
   return (
